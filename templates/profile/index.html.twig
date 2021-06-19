@@ -16,6 +16,10 @@
         <div class="mb-3">
             Вы вошли как, {{ app.user.username }}    <a href="{{ path('app_logout') }}">Выйти</a>
         </div>
+        <div>
+            <a href="{{ path('password_change') }}">Поменять пароль</a>
+        </div>
+
     {% endif %}
 
 

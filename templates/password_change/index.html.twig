@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PasswordChangeController!{% endblock %}
+
+{% block body %}
+    {{ form_start(PasswordChangeForm) }}
+    {{ form_row(PasswordChangeForm.plainPassword, {
+        label: 'Password'
+    })
+    }}
+    <button type="submit" class="btn">Сменить пароль</button>
+    {{ form_end(PasswordChangeForm) }}
+{% endblock %}
