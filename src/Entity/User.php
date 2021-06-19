@@ -23,9 +23,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true , nullable=false)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true, nullable=false)
+     */
+    private $username;
 
     /**
      * @ORM\Column(type="json")
@@ -68,10 +73,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
-    public function getUsername(): string
-    {
-        return (string) $this->email;
-    }
 
     /**
      * @see UserInterface
@@ -106,6 +107,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+
 
     /**
      * Returning a salt is only needed, if you are not using a modern
