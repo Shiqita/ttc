@@ -11,6 +11,14 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
+
+    {% if app.user %}
+        <div class="mb-3">
+            Вы вошли как, {{ app.user.username }}    <a href="{{ path('app_logout') }}">Выйти</a>
+        </div>
+    {% endif %}
+
+
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/Users/DNS/PhpstormProjects/ttc/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
