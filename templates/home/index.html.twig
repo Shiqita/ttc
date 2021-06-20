@@ -1,33 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
-
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
     <div class="container">
-        {% for post in posts %}
-            <div class="row">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.getTitle() }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ post.getCreatedAt()|date('Y-m-d') }}</h6>
-                        <p class="card-text">{{ post.getContent() }}</p>
-                        <a href="#" class="card-link">{{ post.getCategory() }}</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+        {% include 'posts.html.twig' with {'posts': posts} %}
     </div>
 {% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Посты {{ username }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% include 'posts.html.twig' with {'posts': posts} %}
+    </div>
+{% endblock %}
