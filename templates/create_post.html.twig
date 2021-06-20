@@ -3,26 +3,41 @@
 {% block title %}Новый пост{% endblock %}
 
 {% block body %}
-    {% if app.user %}
-        <h1>Создание нового поста</h1>
-        {{ form_start(postForm) }}
-        {{ form_row(postForm.title, {
-            label: 'Заголовок'
-        }) }}
-        {{ form_row(postForm.content,{
-            label: 'Контент'
-        }) }}
-        {{ form_row(postForm.category,{
-            label: 'Категория'
-        }) }}
-        <button type="submit" class="btn">Создать пост</button>
-        {{ form_end(postForm) }}
-    {% endif %}
-    {% if not app.user %}
-        <h1>Что бы создать пост, вам необходимо авторизоваться.</h1>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a class="nav-link" href="{{ path('app_login') }}">Войти</a></li>
-            <li><a class="nav-link" href="{{ path('app_register') }}">Регистрация</a></li>
-        </ul>
-    {% endif %}
+    <div class="container">
+        <div class="row pt-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                {% if app.user %}
+                    <h2>Создание нового поста</h2>
+                    {{ form_start(postForm) }}
+                    <div class="mb-3">
+                        <label for="label" class="form-label">Загаловок</label>
+                        {{ form_widget(postForm.title, {'attr': {'class': 'form-control', 'id': 'label'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="label" class="form-label">Текст</label>
+                        {{ form_widget(postForm.content, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="label" class="form-label">Категория</label>
+                        {{ form_widget(postForm.category, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Создать пост</button>
+                    {{ form_end(postForm) }}
+
+                {% endif %}
+                {% if not app.user %}
+                    <h1>Что бы создать пост, вам необходимо авторизоваться.</h1>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a class="nav-link" href="{{ path('app_login') }}">Войти</a></li>
+                        <li><a class="nav-link" href="{{ path('app_register') }}">Регистрация</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+
 {% endblock %}
+

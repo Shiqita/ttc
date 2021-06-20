@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row pt-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="float-left">{{ post.getTitle() }}</span>
+                        <span class="float-right">{{ post.getCreatedAt()|date('Y-m-d H:i:s') }}</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.getTitle() }}</h5>
+                        <p class="card-text">{{ post.getContent() }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                    <span class="float-left">
+                        <i class="bi bi-person-fill"></i>
+                        <a href="{{ path('profile', {'author_id': post.getAuthor().getId() }) }}"
+                           class="card-link"> {{ post.getAuthor().getUserName() }}</a>
+                    </span>
+                        <span class="float-right">
+                    <i class="bi bi-newspaper"></i>
+                        <a href="{{ path('category', {'category_id': post.getCategory().getId() }) }}"
+                           class="card-link">{{ post.getCategory().getName() }}</a>
+                    </span>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+        {% if app.user %}
+            <div class="row pt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h5>Оставить комментарий</h5>
+                    {{ form_start(commentForm) }}
+                    <div class="mb-3">
+                        {{ form_widget(commentForm.content, {'attr': {'class': 'form-control'}}) }}
+                       {# {{ form_widget(commentForm.submit, {'attr': {'class': 'btn btn-primary mt-2'}, 'label': 'Отправить'}) }}#}
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+                    {{ form_end(commentForm) }}
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        {% endif %}
+        <div class="row pt-4">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h5>Комментарии</h5>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        {% for comment in comments %}
+            <div class="row pt-4">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.getContent() }}</p>
+                        </div>
+                        <div class="card-footer text-muted">
+                    <span class="float-left">
+                        <i class="bi bi-person-fill"></i>
+                        <a href="{{ path('profile', {'author_id': comment.getAuthor().getId() }) }}"
+                           class="card-link"> {{ comment.getAuthor().getUserName() }}</a>
+                    </span>
+                            <span class="float-right">{{ comment.getCreatedAt()|date('Y-m-d H:i:s') }}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="row pt-4"></div>
+    </div>
+{% endblock %}
