@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Новый пост{% endblock %}
+
+{% block body %}
+    <h1>Новый пост</h1>
+
+    {{ form_start(postForm) }}
+    {{ form_row(postForm.title, {
+        label: 'Заголовок'
+    }) }}
+    {{ form_row(postForm.content,{
+        label: 'Контент'
+    }) }}
+    {{ form_row(postForm.category,{
+        label: 'Категория'
+    }) }}
+    <button type="submit" class="btn">Создать пост</button>
+    {{ form_end(postForm) }}
+{% endblock %}

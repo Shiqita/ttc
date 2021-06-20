@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,11 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'home')]
-    public function index(): Response
-    {
+    #[Route('/', name: 'home')]
+    public function index() {
+        $entityManager = $this->getDoctrine()->getManager();
+        $posts = $entityManager->getRepository(Post::class)->findAll();
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'posts' => $posts
         ]);
     }
 }
