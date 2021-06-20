@@ -19,21 +19,32 @@ class PasswordChangeController extends AbstractController
         $form = $this->createForm(PasswordChangeFormType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $pastPassword=$form->get('pastPassword')->getData();
+            $newPassword=$form->get('newPassword')->getData();
+            $check = $user->getPassword();
+            $checkpast = $passwordEncoder->encodePassword(
+                $user,
+                $pastPassword
             );
+            if ($pastPassword != $newPassword
+                && $checkpast != $check ) {
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
+                    $user->setPassword(
+                        $passwordEncoder->encodePassword(
+                            $user,
+                            $newPassword
+                        )
+                    );
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-            return $this->redirectToRoute('app_login');
+                    return $this->redirectToRoute('app_login');
+
+            }
+            return new Response('You are not user!', Response::HTTP_FORBIDDEN);
         }
 
         return $this->render('password_change/index.html.twig', [
