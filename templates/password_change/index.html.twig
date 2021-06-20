@@ -4,9 +4,9 @@
 
 {% block body %}
     {{ form_start(PasswordChangeForm) }}
-    {{ form_row(PasswordChangeForm.plainPassword, {
-        label: 'Password'
-    })
+    {{ form_row(PasswordChangeForm.pastPassword)
+    }}
+    {{ form_row(PasswordChangeForm.newPassword)
     }}
     <button type="submit" class="btn">Сменить пароль</button>
     {{ form_end(PasswordChangeForm) }}

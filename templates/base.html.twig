@@ -32,6 +32,9 @@
             <a class="nav-link" href="{{ path('app_logout') }}">Выйти</a>
         </li>
         <li>
+                <a class="nav-link" href="{{ path('password_change') }}">Поменять пароль</a>
+        </li>
+        <li>
             <a class="nav-link" href="{{ path('profile', {'author_id': app.user.id }) }}">{{ app.user.username }}</a>
         </li>
         {% endif %}
